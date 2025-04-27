@@ -1,3 +1,5 @@
+set search_path to bank;
+
 CREATE TABLE dividend__h (
 	hid BIGINT NOT NULL,                      -- History row ID
 	hd TIMESTAMP NOT NULL,                    -- History timestamp

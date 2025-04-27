@@ -21,8 +21,8 @@ public class DividendController {
     }
 
     @GetMapping("history")
-    public ResponseEntity<?> getHistory(@RequestParam(defaultValue = "x5") String dividendType) {
-        if (!dividendType.equals("x5")) {
+    public ResponseEntity<?> getHistory(@RequestParam() String code) {
+        if (!code.equals("x5")) {
             return ResponseEntity.badRequest().body("Пока что вы можете посмотреть историю дивидендов только x5 group, " +
                     "параметр 'x5'");
         }

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface DividendRepository extends JpaRepository<Dividend, Long> {
-    @Query("SELECT d FROM Dividend d WHERE d.companyCode = 'x5' AND d.state = 'paid'")
+    @Query("SELECT d FROM Dividend d WHERE d.companyCode = '" + Dividend.COMPANY_CODE_X5 + "' AND d.state = '" + Dividend.STATE_PAID + "'")
     List<Dividend> findPaidDividendsForX5();
 
     boolean existsByCompanyCodeAndCloseRegisterDate(String companyCode, LocalDate closeRegisterDate);

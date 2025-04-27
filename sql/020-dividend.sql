@@ -1,3 +1,5 @@
+set search_path to bank;
+
 CREATE TABLE dividend
 (
 	id bigint NOT NULL,                       -- Technical id

@@ -24,6 +24,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DividendDohodServiceImpl implements DividendService {
+
+    public static final String NOT_AVAILABLE = "n/a";
+    public static final String FORECAST_MARK = "(прогноз)";
+
     private final DividendRepository dividendRepository;
 
     @Transactional
@@ -60,8 +64,8 @@ public class DividendDohodServiceImpl implements DividendService {
                     dividend.setStateDate(LocalDateTime.now());
                     dividend.setCompanyName("X5 Retail Group");
                     dividend.setCompanyCode(Dividend.COMPANY_CODE_X5);
-                    if ("n/a".equals(declarationDate) && "n/a".equals(period)) {
-                        if (!registryCloseDateStr.contains("прогноз")) {
+                    if (NOT_AVAILABLE.equals(declarationDate) && NOT_AVAILABLE.equals(period)) {
+                        if (!registryCloseDateStr.contains(FORECAST_MARK)) {
                             dividend.setDividendDeclarationDate(null);
                             dividend.setDividendPeriod(null);
                             dividend.setCloseRegisterDate(parseDate(registryCloseDateStr));
@@ -69,7 +73,7 @@ public class DividendDohodServiceImpl implements DividendService {
                         } else {
                             dividend.setDividendDeclarationDate(null);
                             dividend.setDividendPeriod(null);
-                            registryCloseDateStr = registryCloseDateStr.replace("(прогноз)", "").trim();
+                            registryCloseDateStr = registryCloseDateStr.replace(FORECAST_MARK, "").trim();
                             dividend.setCloseRegisterDate(parseDate(registryCloseDateStr));
                             dividend.setState(Dividend.STATE_FORECAST);
                         }
@@ -99,7 +103,8 @@ public class DividendDohodServiceImpl implements DividendService {
             try {
                 dividendRepository.saveAll(dividendList);
             } catch (Exception e) {
-                throw new ExceptDb("DividendDohodService_01", String.format("Error while saveAll Dividend, cause - %s", e.getMessage()));
+                throw new ExceptDb("DividendDohodService_01",
+                        String.format("Error while saveAll Dividend, cause - %s", e.getMessage()));
             }
         }
     }
@@ -108,7 +113,10 @@ public class DividendDohodServiceImpl implements DividendService {
         try {
             return dividendRepository.findPaidDividendsForX5();
         } catch (Exception e) {
-            throw new ExceptDb("DividendDohodService_02", String.format("SELECT d FROM Dividend d WHERE d.companyCode = 'x5' AND d.state = 'paid', cause - %s", e.getMessage()));
+            throw new ExceptDb("DividendDohodService_02",
+                    String.format("SELECT d FROM Dividend d WHERE d.companyCode = '" + Dividend.COMPANY_CODE_X5 +
+                            "' AND d.state = '" + Dividend.STATE_PAID + "', cause - %s",
+                            e.getMessage()));
         }
     }
 
