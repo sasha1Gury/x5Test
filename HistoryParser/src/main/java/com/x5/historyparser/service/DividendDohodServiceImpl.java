@@ -62,7 +62,7 @@ public class DividendDohodServiceImpl implements DividendService {
                     Dividend dividend = new Dividend();
                     dividend.setCreated(LocalDateTime.now());
                     dividend.setStateDate(LocalDateTime.now());
-                    dividend.setCompanyName("X5 Retail Group");
+                    dividend.setCompanyName("X5 Group");
                     dividend.setCompanyCode(Dividend.COMPANY_CODE_X5);
                     if (NOT_AVAILABLE.equals(declarationDate) && NOT_AVAILABLE.equals(period)) {
                         if (!registryCloseDateStr.contains(FORECAST_MARK)) {
