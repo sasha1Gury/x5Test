@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: HistoryParser
+  datasource:
+    url: jdbc:postgresql://localhost:5432/x5
+    username: dividends_user
+    password: dividends_user
+    driver-class-name: org.postgresql.Driver
