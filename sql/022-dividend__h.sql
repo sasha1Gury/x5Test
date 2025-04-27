@@ -20,10 +20,12 @@ CREATE TABLE dividend__h (
 	payment_date DATE                         -- Date when dividends are paid (may be NULL if not yet paid)
 );
 
-/* Create Index */
+
+
 CREATE INDEX dividend__h_idx_id ON dividend__h (id ASC);
 
-/* Create Comments */
+
+
 COMMENT ON COLUMN dividend__h.hid
 	IS 'history row id'
 ;
@@ -41,10 +43,11 @@ COMMENT ON COLUMN dividend__h.id
 	IS 'origin id'
 ;
 
-/* Create Sequence for history table */
+
 CREATE SEQUENCE dividend__hs START 1;
 
-/* Create Functions */
+
+
 CREATE OR REPLACE FUNCTION dividend__tbdf()
 RETURNS trigger 
 SECURITY DEFINER
@@ -81,7 +84,7 @@ END;
 $$
 LANGUAGE plpgsql;
 
-/* Create Triggers */
+
 CREATE TRIGGER dividend__tbd
 BEFORE DELETE
 ON dividend
@@ -101,6 +104,6 @@ FOR EACH ROW
 WHEN (OLD.* IS DISTINCT FROM NEW.*)
 EXECUTE FUNCTION dividend__tbif();
 
-/* Grants (optional if you need them) */
+
 grant select on dividend__h to dividends_user;
 grant usage, select on dividend__hs to dividends_user;
